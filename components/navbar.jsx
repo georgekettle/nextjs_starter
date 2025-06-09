@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
-import { useAuth } from '@/lib/auth'
+import { useAuth } from '@/components/providers/auth'
 import { Logo } from '@/components/logo';
 
 export default function Navbar() {

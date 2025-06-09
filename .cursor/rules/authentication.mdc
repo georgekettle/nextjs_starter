@@ -5,8 +5,7 @@ alwaysApply: false
 ---
 ---
 name: Token-Based Authentication (Rails 8 Generator)
-type: auto_attached
-glob: "**/*_controller.rb"
+type: manual
 description: >
   Enforces token-based authentication in Rails 8 API-only apps using
   database-backed session tokens. Tracks the current user and session

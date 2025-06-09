@@ -1,11 +1,11 @@
 ---
 description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 ---
 name: API Response Convention (Supabase-like)
-type: always
+type: manual
 description: Defines the standard JSON response structure for all API endpoints, including success, error, and paginated responses, mimicking a Supabase-like format.
 ---
 
