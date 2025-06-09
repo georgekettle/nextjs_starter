@@ -1,0 +1,12 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+---
+name: NextJS Only Standards
+type: always
+description: Defines patterns to follow in this project
+---
+
+Always use ShadCNUI components where possible. If not installed, install them.
