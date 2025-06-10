@@ -85,7 +85,7 @@ export function AuthProvider({ children }) {
     }
   }
 
-  const signOut = async () => {
+  const logout = async () => {
     try {
       await authApi.logout()
     } catch (error) {
@@ -127,7 +127,7 @@ export function AuthProvider({ children }) {
       loading,
       login,
       signUp,
-      signOut,
+      logout,
       resetPassword
     }}>
       {children}

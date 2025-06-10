@@ -4,45 +4,70 @@ import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { useAuth } from '@/components/providers/auth'
 import { Logo } from '@/components/logo';
+import { UserRound } from "lucide-react"
+
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { getInitials } from '@/lib/utils'
 
 export default function Navbar() {
-  const { user, signOut } = useAuth()
+  const { user, logout } = useAuth()
 
   return (
-    <nav className="fixed top-0 inset-x-0">
+    <nav className="fixed top-0 inset-x-0 bg-background/80 backdrop-blur-sm z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between h-16 items-center">
           <div className="flex-shrink-0">
             <Logo />
           </div>
           
-          <div className="flex gap-4">
-            {user ? (
-              <Button 
-                variant="outline"
-                onClick={() => signOut()}
-              >
-                Sign out
-              </Button>
-            ) : (
-              <>
+          <div className="flex items-center gap-4">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
                 <Button 
-                  variant="outline"
-                  asChild
+                  variant="ghost" 
+                  className="relative h-10 w-10 rounded-full"
                 >
-                  <Link href="/auth/login">
-                    Sign in
-                  </Link>
+                  <Avatar className="h-10 w-10">
+                    <AvatarFallback>
+                      {user ? (
+                        getInitials(user.name)
+                      ) : (
+                        <UserRound />
+                      )}
+                    </AvatarFallback>
+                  </Avatar>
                 </Button>
-                <Button
-                  asChild
-                >
-                  <Link href="/auth/signup">
-                    Sign up
-                  </Link>
-                </Button>
-              </>
-            )}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                {user ? (
+                  <DropdownMenuItem 
+                    onClick={() => logout()}
+                    className="text-destructive focus:text-destructive focus:bg-destructive/5"
+                  >
+                    Logout
+                  </DropdownMenuItem>
+                ) : (
+                  <>
+                    <DropdownMenuItem asChild>
+                      <Link href="/auth/login">
+                        Login
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link href="/auth/signup">
+                        Sign up
+                      </Link>
+                    </DropdownMenuItem>
+                  </>
+                )}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
