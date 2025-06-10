@@ -121,6 +121,49 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const updateUser = async (data) => {
+    try {
+      const response = await authApi.updateUser(data)
+      setUser(response.data.user)
+      return { success: true }
+    } catch (error) {
+      if (error instanceof ApiError) {
+        return { 
+          success: false, 
+          error: error.message,
+          details: error.details
+        }
+      }
+      return { 
+        success: false, 
+        error: 'An unexpected error occurred' 
+      }
+    }
+  }
+
+  const deleteUser = async ({ password_challenge }) => {
+    try {
+      await authApi.deleteUser({ password: password_challenge })
+      setUser(null)
+      if (typeof window !== 'undefined') {
+        localStorage.removeItem('token')
+      }
+      return { success: true }
+    } catch (error) {
+      if (error instanceof ApiError) {
+        return { 
+          success: false, 
+          error: error.message,
+          details: error.details
+        }
+      }
+      return { 
+        success: false, 
+        error: 'An unexpected error occurred' 
+      }
+    }
+  }
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -128,7 +171,9 @@ export function AuthProvider({ children }) {
       login,
       signUp,
       logout,
-      resetPassword
+      resetPassword,
+      updateUser,
+      deleteUser
     }}>
       {children}
     </AuthContext.Provider>

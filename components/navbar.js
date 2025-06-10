@@ -60,6 +60,12 @@ export default function Navbar() {
                       </div>
                     </div>
                     <DropdownMenuSeparator />
+                    <DropdownMenuItem asChild>
+                      <Link href="/settings/profile">
+                        Settings
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuSeparator />
                     <DropdownMenuItem 
                       onClick={() => logout()}
                       className="text-destructive focus:text-destructive focus:bg-destructive/5"
