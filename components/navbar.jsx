@@ -11,6 +11,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
+  DropdownMenuSeparator
 } from "@/components/ui/dropdown-menu"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { getInitials } from '@/lib/utils'
@@ -46,12 +47,26 @@ export default function Navbar() {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
                 {user ? (
-                  <DropdownMenuItem 
-                    onClick={() => logout()}
-                    className="text-destructive focus:text-destructive focus:bg-destructive/5"
-                  >
-                    Logout
-                  </DropdownMenuItem>
+                  <>
+                    <div className="flex items-center gap-2 p-2">
+                      <Avatar className="h-8 w-8">
+                        <AvatarFallback className="text-sm">
+                          {getInitials(user.name)}
+                        </AvatarFallback>
+                      </Avatar>
+                      <div className="flex flex-col">
+                        <span className="text-sm font-medium">{user.name}</span>
+                        <span className="text-xs text-muted-foreground">{user.email}</span>
+                      </div>
+                    </div>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem 
+                      onClick={() => logout()}
+                      className="text-destructive focus:text-destructive focus:bg-destructive/5"
+                    >
+                      Logout
+                    </DropdownMenuItem>
+                  </>
                 ) : (
                   <>
                     <DropdownMenuItem asChild>
