@@ -20,10 +20,11 @@ import { AlertCircleIcon } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { loginSchema } from "@/lib/validations/auth"
 import { useAuth } from "@/components/providers/auth"
+import { AuthHeader } from "@/components/auth/auth-header"
 
 export function LoginForm() {
   const router = useRouter()
-  const { signIn } = useAuth()
+  const { login } = useAuth()
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
@@ -39,12 +40,25 @@ export function LoginForm() {
     setIsLoading(true)
     setError("")
 
-    const { success, error: signInError } = await signIn(data.email, data.password)
+    const { success, error: loginError, details } = await login(
+      data.email,
+      data.password
+    )
 
     if (success) {
       router.replace("/")
     } else {
-      setError(signInError)
+      setError(loginError)
+      
+      // If we have validation errors, set them in the form
+      if (details) {
+        Object.entries(details).forEach(([field, messages]) => {
+          form.setError(field, {
+            type: 'manual',
+            message: Array.isArray(messages) ? messages[0] : messages,
+          })
+        })
+      }
       setIsLoading(false)
     }
   }
@@ -52,12 +66,10 @@ export function LoginForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-medium tracking-tight">Login to your account</h1>
-          <p className="text-muted-foreground text-sm text-balance">
-            Enter your email below to login to your account
-          </p>
-        </div>
+        <AuthHeader
+          title="Welcome back"
+          description="Enter your email to sign in to your account"
+        />
         {error && (
           <Alert variant="destructive">
             <AlertCircleIcon />
@@ -85,9 +97,12 @@ export function LoginForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <div className="flex items-center">
+              <div className="flex items-center justify-between">
                 <FormLabel>Password</FormLabel>
-                <Link href="/auth/forgot-password" className="ml-auto text-sm underline-offset-4 hover:underline">
+                <Link
+                  href="/auth/forgot-password"
+                  className="text-sm hover:underline underline-offset-4"
+                >
                   Forgot your password?
                 </Link>
               </div>
@@ -99,7 +114,7 @@ export function LoginForm() {
           )}
         />
         <Button type="submit" className="w-full" disabled={isLoading}>
-          {isLoading ? "Logging in..." : "Login"}
+          {isLoading ? "loging in..." : "Sign in"}
         </Button>
         <div className="text-center text-sm">
           Don&apos;t have an account?{" "}

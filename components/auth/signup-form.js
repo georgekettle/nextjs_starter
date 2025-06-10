@@ -20,6 +20,7 @@ import { AlertCircleIcon } from "lucide-react"
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert"
 import { signupSchema } from "@/lib/validations/auth"
 import { useAuth } from "@/components/providers/auth"
+import { AuthHeader } from "@/components/auth/auth-header"
 
 export function SignupForm() {
   const router = useRouter()
@@ -68,12 +69,10 @@ export function SignupForm() {
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <div className="flex flex-col items-center gap-2 text-center">
-          <h1 className="text-2xl font-medium tracking-tight">Create an account</h1>
-          <p className="text-muted-foreground text-sm text-balance">
-            Enter your details below to create your account
-          </p>
-        </div>
+        <AuthHeader
+          title="Create an account"
+          description="Enter your details below to create your account"
+        />
         {error && (
           <Alert variant="destructive">
             <AlertCircleIcon />

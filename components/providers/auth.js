@@ -36,7 +36,7 @@ export function AuthProvider({ children }) {
     }
   }
 
-  const signIn = async (email, password) => {
+  const login = async (email, password) => {
     try {
       const response = await authApi.login({ email, password })
       const { user: userData, token } = response.data
@@ -98,13 +98,37 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const resetPassword = async ({ token, password }) => {
+    try {
+      const response = await authApi.resetPassword({ 
+        token,
+        password,
+        password_confirmation: password
+      })
+      return { success: true }
+    } catch (error) {
+      if (error instanceof ApiError) {
+        return { 
+          success: false, 
+          error: error.message,
+          details: error.details
+        }
+      }
+      return { 
+        success: false, 
+        error: 'An unexpected error occurred' 
+      }
+    }
+  }
+
   return (
     <AuthContext.Provider value={{
       user,
       loading,
-      signIn,
+      login,
       signUp,
-      signOut
+      signOut,
+      resetPassword
     }}>
       {children}
     </AuthContext.Provider>
