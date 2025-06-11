@@ -1,7 +1,7 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Button } from "@/components/ui/button"
 import Navbar from "@/components/navbar";
+import GitHubLogo from "@/components/icons/github-logo";
 
 export default function Home() {
   return (
@@ -22,13 +22,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2"
               >
-                <Image
-                  src="/icons/github.svg"
-                  alt="GitHub icon"
-                  width={20}
-                  height={20}
-                  style={{ filter: 'brightness(0) invert(1)' }}
-                />
+                <GitHubLogo className="w-5 h-5" />
                 NextJS Starter
               </Link>
             </Button>
@@ -39,13 +33,7 @@ export default function Home() {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2"
               >
-                <Image
-                  src="/icons/github.svg"
-                  alt="GitHub icon"
-                  width={20}
-                  height={20}
-                  style={{ filter: 'brightness(0)' }}
-                />
+                <GitHubLogo className="w-5 h-5" />
                 Rails API Starter
               </Link>
             </Button>
