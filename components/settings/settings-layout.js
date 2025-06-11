@@ -24,10 +24,6 @@ const sidebarNavItems = [
     href: '/settings/password',
   },
   {
-    title: "Sessions",
-    href: '/settings/sessions',
-  },
-  {
     title: "Appearance",
     href: '/settings/appearance',
   },

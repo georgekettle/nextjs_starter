@@ -19,3 +19,5 @@ Proect rules:
 - Always use apiClient for making API requests (in lib/api/client.js)
 - Always group api endpoints into organised files, in the same format that 'lib/api/auth.js' does
 - Always use kebab-case syntax for file names and imports of components in this project (eg. AuthLayout - 'auth-layout.js')
+- Do not update the fonts used in any way.
+- Always use TailwindCSS version 4 (v4)
