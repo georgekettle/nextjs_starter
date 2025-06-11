@@ -184,6 +184,25 @@ export function AuthProvider({ children }) {
     }
   }
 
+  const updatePassword = async (data) => {
+    try {
+      await authApi.updatePassword(data)
+      return { success: true }
+    } catch (error) {
+      if (error instanceof ApiError) {
+        return { 
+          success: false, 
+          error: error.message,
+          details: error.details
+        }
+      }
+      return { 
+        success: false, 
+        error: 'An unexpected error occurred' 
+      }
+    }
+  }
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -194,7 +213,8 @@ export function AuthProvider({ children }) {
       resetPassword,
       updateUser,
       deleteUser,
-      updateEmail
+      updateEmail,
+      updatePassword
     }}>
       {children}
     </AuthContext.Provider>
